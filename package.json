@@ -1,0 +1,16 @@
+{
+  "name": "entertainme-with-cache",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/dyankastutara/entertainme-with-cache.git",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.1",
+    "redis": "^2.7.1",
+    "response-time": "^2.3.2"
+  }
+}
