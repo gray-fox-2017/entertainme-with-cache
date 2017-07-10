@@ -4,7 +4,7 @@ var methods = {}
 methods.getAll = (req, res) => {
   Movie.find({})
   .then((movies)=>{
-    res.send({movies: movies})
+    res.send({data: movies})
   })
   .catch((err)=>{res.send(err)})
 }
@@ -12,7 +12,7 @@ methods.getAll = (req, res) => {
 methods.getByID = (req, res) => {
   Movie.findById(req.params.id)
   .then((movie)=>{
-    res.send({movie: movie})
+    res.send({data: movie})
   })
   .catch((err)=>{
     res.send(err.message)
@@ -24,7 +24,7 @@ methods.create = (req, res) => {
 
   newHouse.save()
   .then(movies => {
-    res.send({movies: movies})
+    res.send({data: movies})
   })
   .catch((err)=>{
     res.send(err)}
@@ -38,7 +38,7 @@ methods.update = (req, res) => {
     Movie.findById(id)
   })
   .then((movie)=>{
-    res.send({movie: movie})
+    res.send({data: movie})
   })
   .catch((err)=>{res.send(err)})
 }

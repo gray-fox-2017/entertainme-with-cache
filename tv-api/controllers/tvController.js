@@ -4,15 +4,15 @@ var methods = {}
 methods.getAll = (req, res) => {
   Tv.find({})
   .then((tvSeries)=>{
-    res.send({tvSeries: tvSeries})
+    res.send({data: tvSeries})
   })
   .catch((err)=>{res.send(err)})
 }
 
 methods.getByID = (req, res) => {
   Tv.findById(req.params.id)
-  .then((movie)=>{
-    res.send({movie: movie})
+  .then((tvSeries)=>{
+    res.send({data: tvSeries})
   })
   .catch((err)=>{
     res.send(err.message)
@@ -24,7 +24,7 @@ methods.create = (req, res) => {
 
   newHouse.save()
   .then(tvSeries => {
-    res.send({tvSeries: tvSeries})
+    res.send({data: tvSeries})
   })
   .catch((err)=>{
     res.send(err)}
@@ -37,8 +37,8 @@ methods.update = (req, res) => {
   .then(() => {
     Tv.findById(id)
   })
-  .then((movie)=>{
-    res.send({movie: movie})
+  .then((tvSeries)=>{
+    res.send({data: tvSeries})
   })
   .catch((err)=>{res.send(err)})
 }
