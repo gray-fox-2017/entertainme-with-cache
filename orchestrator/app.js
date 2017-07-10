@@ -19,12 +19,13 @@ app.get('/', (req, res) => {
 app.get('/api/entertainme', (req, res) => {
   client.get('ent', (error, result) => {
     if(result) {
-      res.send(result)
+      res.send({response: JSON.parse(result), source: 'redis'})
     }
     else {
       ent.getData()
         .then((response) => {
-          res.send(response)
+          client.setex('ent', 1, JSON.stringify(response))
+          res.send({response, source: 'database'})
         })
     }
   })
