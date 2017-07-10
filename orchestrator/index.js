@@ -3,7 +3,7 @@ const responseTime = require('response-time');
 const redis = require('redis');
 const orchestrator = require('./orchestrator');
 
-console.log('jalan')
+// console.log('jalan')
 const client = redis.createClient();
 client.on('error', err=> { console.log(`Error : ${err}`) } );
 
@@ -11,14 +11,9 @@ app.set('port', 3000);
 app.use(responseTime());
 
 app.get('/entertainme', (req,res)=> {
-  // console.log('dapet')
   client.get('entertaintment', ( err,result) => {
     if (result) {
       result = JSON.parse(result);
-
-
-      // let jsonPretty = JSON.stringify(result,null,2);
-
       if (typeof result.tvs !== 'undefined') console.log(result.tvs[0]);
       res.send({
         data: result,
