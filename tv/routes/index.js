@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+'use strict'
+const express = require('express');
+let router = express.Router();
 const tvCtrl = require('../controllers/tvCtrl');
 
 
