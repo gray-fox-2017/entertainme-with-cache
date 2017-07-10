@@ -19,9 +19,7 @@ app.get('/:entertainme', (req, res) => {
     const entertainme = req.params.entertainme
     client.get('entertainme', (err, result) => {
         if (result) {
-            res.send({
-                data: JSON.stringify(result)
-            })
+            res.send(JSON.parse(result))
         } else {
             const getData = async () => {
                 try {
@@ -37,7 +35,7 @@ app.get('/:entertainme', (req, res) => {
                             data: tvSeries.data
                         }
                     }
-                    client.setex(entertainme, 10, data)
+                    client.setex(entertainme, 10, JSON.stringify(data))
                     res.send(data)
                 } catch (error) {
                     console.log(error)
