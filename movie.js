@@ -7,7 +7,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 const movie = require('./controllers/movie')
 
-mongoose.connect('mongodb://localhost/entertainme')
+mongoose.connect('mongodb://localhost/entertainme', {
+  useMongoClient: true
+})
 
 app.get('/', (req, res) => {
   res.send('Movie db')
