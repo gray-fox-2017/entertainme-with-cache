@@ -1,4 +1,4 @@
-const mongosse = require('mongoose')
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 var moviesSchema = new Schema ({
