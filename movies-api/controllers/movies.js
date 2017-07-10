@@ -1,5 +1,6 @@
 const Movies = require('../models/movies')
 const Tags = require('../models/tags')
+const Promise = require('mongoose').Promise
 
 var create = ((req, res) => {
   let newMovies = new Movies ({
@@ -14,33 +15,43 @@ var create = ((req, res) => {
   })
 })
 
-const getTagsIds = async (tags) => {
-  tags = await tags.map((tag) => {
-    let tagId = ''
-    Tags.find({'text': tag}, async (err, tagRes) => {
-      await console.log('FIIIND', tagRes)
-      if (err) tagId = err
-      if(tag.length > 0) {
-        console.log('IIIIDDDDD', tagRes[0]._id)
-        tagId = tagRes[0]._id
-      }
-      else {
-        tagId = 'lalala'
-      }
-    })
-    return tagId
-  })
-  console.log('func', tags)
-  return tags
-}
-
 var createTags = ((req, res) => {
   let tags = req.body.tags
-  console.log('atas', tags)
-  getTagsIds(tags)
-    .then (tags => {
-      console.log('bawah', tags)
-      res.send(tags)
+  let tagsIds = []
+  let tagsToBeCreated = []
+  Tags.find({ 'text': { $in: tags }})
+    .exec((err, result) => {
+      tagsToBeCreated = tags.filter((tag) => {
+        let findResult = result.find((oneResult) => {
+          return oneResult.text === tag
+        })
+        if (findResult) {
+          tagsIds.push(findResult._id)
+        }
+        return findResult === undefined
+      })
+    })
+    .then((aOT) => {
+      tagsToBeCreated = tagsToBeCreated.map((tag) => {
+        return {'text': tag}
+      })
+      Tags.insertMany(tagsToBeCreated, (err, createdTags) => {
+        createdTags.map((tag) => {
+          tagsIds.push(tag._id)
+        })
+      })
+        .then(() => {
+          let newMovies = new Movies ({
+            title: req.body.title,
+            popularity: req.body.popularity,
+            tags: tagsIds,
+            overview: req.body.overview,
+            poster_path: req.body.poster_path
+          })
+          newMovies.save((err, createdMovies) => {
+            res.send(err ? err : createdMovies)
+          })
+        })
     })
 })
 

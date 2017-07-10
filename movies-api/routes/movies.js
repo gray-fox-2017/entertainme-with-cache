@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Movies = require('../controllers/movies')
 
-router.post('/', Movies.create)
+router.post('/', Movies.createTags)
 router.get('/', Movies.showAll)
 router.get('/:id', Movies.showOne)
 router.put('/:id', Movies.update)
