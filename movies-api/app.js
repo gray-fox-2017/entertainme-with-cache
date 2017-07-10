@@ -15,9 +15,11 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 const index = require('./routes/index')
 const movies = require('./routes/movies')
+const tags = require('./routes/tags')
 
 app.use('/', index)
 app.use('/api/magicmovies', movies)
+app.use('/api/magictags', tags)
 
 app.listen(app.get('port'), () => {
   console.log('Magic movies are happening at http://localhost:3001')

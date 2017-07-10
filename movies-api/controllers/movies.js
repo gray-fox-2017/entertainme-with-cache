@@ -1,4 +1,5 @@
 const Movies = require('../models/movies')
+const Tags = require('../models/tags')
 
 var create = ((req, res) => {
   let newMovies = new Movies ({
@@ -11,6 +12,36 @@ var create = ((req, res) => {
   newMovies.save((err, createdMovies) => {
     res.send(err ? err : createdMovies)
   })
+})
+
+const getTagsIds = async (tags) => {
+  tags = await tags.map((tag) => {
+    let tagId = ''
+    Tags.find({'text': tag}, async (err, tagRes) => {
+      await console.log('FIIIND', tagRes)
+      if (err) tagId = err
+      if(tag.length > 0) {
+        console.log('IIIIDDDDD', tagRes[0]._id)
+        tagId = tagRes[0]._id
+      }
+      else {
+        tagId = 'lalala'
+      }
+    })
+    return tagId
+  })
+  console.log('func', tags)
+  return tags
+}
+
+var createTags = ((req, res) => {
+  let tags = req.body.tags
+  console.log('atas', tags)
+  getTagsIds(tags)
+    .then (tags => {
+      console.log('bawah', tags)
+      res.send(tags)
+    })
 })
 
 var showAll = ((req,res) => {
@@ -48,6 +79,7 @@ var destroy = ((req, res) => {
 
 module.exports = {
   create,
+  createTags,
   showAll,
   showOne,
   update,
