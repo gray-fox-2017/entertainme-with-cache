@@ -8,14 +8,12 @@ mongoose.connect('mongodb://localhost/entertainme', {
 
 var app = express();
 var movie = require('./routes/movie');
-// var tv = require('./routes/tv');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
 app.use('/api/movie', movie);
-// app.use('/api/tv', tv);
 
-app.listen(3000, () => {
-  console.log('Listening on http://localhost:3000');
+app.listen(3001, () => {
+  console.log('Listening on http://localhost:3001');
 })
