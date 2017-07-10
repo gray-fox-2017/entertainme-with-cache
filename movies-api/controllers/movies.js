@@ -1,6 +1,5 @@
 const Movies = require('../models/movies')
 const Tags = require('../models/tags')
-const Promise = require('mongoose').Promise
 
 var create = ((req, res) => {
   let newMovies = new Movies ({
