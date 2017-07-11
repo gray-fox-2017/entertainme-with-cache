@@ -1,0 +1,26 @@
+{
+  "name": "entertainme-with-cache",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ridho0/entertainme-with-cache.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ridho0/entertainme-with-cache/issues"
+  },
+  "homepage": "https://github.com/ridho0/entertainme-with-cache#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.1"
+  }
+}
