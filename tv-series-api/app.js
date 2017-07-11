@@ -15,9 +15,11 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 const index = require('./routes/index')
 const series = require('./routes/series')
+const tags = require('./routes/tags')
 
 app.use('/', index)
 app.use('/api/magicseries', series)
+app.use('/api/magictags', tags)
 
 app.listen(app.get('port'), () => {
   console.log('Magic series are happening at http://localhost:3002')

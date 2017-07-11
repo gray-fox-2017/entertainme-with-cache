@@ -16,6 +16,9 @@ var create = ((req, res) => {
 
 var createTags = ((req, res) => {
   let tags = req.body.tags
+  tags = tags.map((tag) => {
+    return tag.toLowerCase()
+  })
   let tagsIds = []
   let tagsToBeCreated = []
   Tags.find({ 'text': { $in: tags }})

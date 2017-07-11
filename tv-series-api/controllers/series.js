@@ -13,6 +13,50 @@ var create = ((req, res) => {
   })
 })
 
+var createTags = ((req, res) => {
+  let tags = req.body.tags
+  tags = tags.map((tag) => {
+    return tag.toLowerCase()
+  })
+  let tagsIds = []
+  let tagsToBeCreated = []
+  Tags.find({ 'text': { $in: tags }})
+    .exec((err, result) => {
+      tagsToBeCreated = tags.filter((tag) => {
+        let findResult = result.find((oneResult) => {
+          return oneResult.text === tag
+        })
+        if (findResult) {
+          tagsIds.push(findResult._id)
+        }
+        return findResult === undefined
+      })
+    })
+    .then((aOT) => {
+      tagsToBeCreated = tagsToBeCreated.map((tag) => {
+        return {'text': tag}
+      })
+      Tags.insertMany(tagsToBeCreated, (err, createdTags) => {
+        createdTags.map((tag) => {
+          tagsIds.push(tag._id)
+        })
+      })
+        .then(() => {
+          let newMovies = new Movies ({
+            title: req.body.title,
+            popularity: req.body.popularity,
+            tags: tagsIds,
+            overview: req.body.overview,
+            poster_path: req.body.poster_path
+          })
+          newMovies.save((err, createdMovies) => {
+            res.send(err ? err : createdMovies)
+          })
+        })
+    })
+})
+
+
 var showAll = ((req,res) => {
   Series.find({},  (err, series) => {
     res.send(err ? err : series)
@@ -48,6 +92,7 @@ var destroy = ((req, res) => {
 
 module.exports = {
   create,
+  createTags,
   showAll,
   showOne,
   update,
